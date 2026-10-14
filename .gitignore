@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+
+# 运行时产物
+attendance.txt
+verdict_78.txt
+*.db
+*.db-wal
+*.db-shm
+
+# 节假日缓存（首次运行自动生成，不纳入版本）
+holiday_*.json
+
+# 敏感：token / 本地配置
+localhost_api_token.txt
+*.local.json

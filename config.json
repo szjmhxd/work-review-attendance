@@ -1,0 +1,65 @@
+{
+  "_说明": "Work Review 考勤判定配置文件。改这里即可调整判定口径，无需改代码。",
+
+  "work_hours": {
+    "am": ["08:30", "12:00"],
+    "pm": ["13:00", "17:30"],
+    "note": "法定工作日的上班时段。用户口径原文：8.30-12.00 13.00-17.30"
+  },
+
+  "overtime_rule": {
+    "weekday_overtime_counted": false,
+    "restday_work_counted": true,
+    "note": "用户口径：工作日超过工作时间不算加班；非工作日来才算加班"
+  },
+
+  "automation_fingerprints": {
+    "url_contains": [
+      "form=CHRDEF",
+      "juejin.cn/user/center/signin"
+    ],
+    "note": "zTasker 自动任务灌入的浏览器访问，判定前必须剔除：bing_search.py 固定带 form=CHRDEF 参数；掘金签到固定 juejin.cn/user/center/signin"
+  },
+
+  "company_fingerprints": {
+    "url_contains": [
+      "bgpt.cn",
+      "kdocs.cn",
+      "wps.cn",
+      "127.0.0.1:5000",
+      "192.168.3.",
+      "px.tj.cn",
+      "agryjxjy.cn",
+      "192.168.2.23",
+      "192.168.2.64"
+    ],
+    "window_title_contains": [
+      "jzzxjy",
+      "jypt_",
+      "laravel_initial",
+      "8.147.118.28",
+      "192.168.2.46",
+      "192.168.2.67",
+      "192.168.3.208",
+      "建业",
+      "bgpt",
+      "JZKJOnlineTraining"
+    ],
+    "note": "公司自有业务系统指纹，分两层：URL 层（浏览器访问）+ 窗口标题层（Navicat/Trae/IDEA 里的建业库名、内网 IP）"
+  },
+
+  "thresholds": {
+    "slot_minutes": 30,
+    "attendance_min_slots": 10,
+    "company_min_stay_seconds": 60,
+    "restday_company_min_hits": 3,
+    "restday_work_min_seconds": 1800,
+    "note": "slot_minutes=槽粒度；attendance_min_slots=出勤需覆盖的最少半小时槽数；company_min_stay_seconds=单次公司业务停留才算数的下限（排除 duration=0 挂机刷新）；restday_company_min_hits=休息日公司 URL 命中次数算加班的门槛"
+  },
+
+  "data_sources": {
+    "work_review_db": "D:\\environment\\work-review\\workreview.db",
+    "edge_history": "%LOCALAPPDATA%\\Microsoft\\Edge\\User Data\\Default\\History",
+    "note": "Work Review 的 activities 表（只读）+ Edge 浏览器历史（immutable=1 只读直开）"
+  }
+}
